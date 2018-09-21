@@ -9,6 +9,10 @@ public class Main {
         list.insert(5);
         list.insert(0, 1);
         list.display();
+        list.delete();
+        list.display();
+        list.delete(5);
+        list.display();
 
     }
 }

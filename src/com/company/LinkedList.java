@@ -66,6 +66,10 @@ public class LinkedList<T> {
             counter++;
         }
 
+        if(counter < position) {
+            return null;
+        }
+
         if (prev != null) { // If the position is not 1, then prev will be null
             LinkedList<T> newEle = new LinkedList<>(data);
             newEle.next = temp;
@@ -79,6 +83,65 @@ public class LinkedList<T> {
     }
 
     /**
+     * Delete last element present in the list
+     * @return
+     */
+    public T delete() {
+        LinkedList<T> temp = this;
+        LinkedList<T> prev = null;
+
+        while(temp.next != null) {
+            prev = temp;
+            temp = temp.next;
+        }
+
+        if(this.next == null) {
+            final T removedData = this.data;
+            this.data = null;
+            return removedData;
+        } else {
+            final T removedData = temp.data;
+            prev.next = null;
+            return removedData;
+        }
+    }
+
+    /**
+     * Delete element at a particular position in a linked list
+     * @param position
+     * @return
+     */
+    public T delete(int position) {
+        LinkedList<T> temp = this;
+        LinkedList<T> prev = null;
+        int counter = 1;
+
+        while(temp != null && counter < position) {
+            prev = temp;
+            temp = temp.next;
+            counter++;
+        }
+
+        if(counter < position) {
+            return null;
+        }
+
+        if(prev != null) {
+            prev.next = temp.next;
+            return temp.data;
+        } else if(this.next == null) {
+            final T removedData = this.data;
+            this.data = null;
+            return removedData;
+        } else {
+            final T removedData = this.data;
+            this.data = this.next.data;
+            this.next = this.next.next;
+            return removedData;
+        }
+    }
+
+    /**
      * Display all the elements of a Linked List
      */
     public void display() {
@@ -87,6 +150,7 @@ public class LinkedList<T> {
             System.out.print(temp.data + "-");
             temp = temp.next;
         }
+        System.out.println("");
     }
 
 }
